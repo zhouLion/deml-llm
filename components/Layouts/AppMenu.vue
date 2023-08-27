@@ -6,7 +6,6 @@
       h-20 wfull flex items-center px-7
     >
       <img src="/img/logo.png" alt="fedml's logo" h32px w32px>
-      <!-- <span i-akar-icons:music-album-fill text-primary-300 rounded-2xl text-4xl /> -->
       <h2 class="mb-0 ml5 text-xl font-bold">
         FedML LLMOps
       </h2>
