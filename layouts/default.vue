@@ -1,9 +1,30 @@
+<script lang="ts" setup>
+import { ConfigProvider, theme } from 'ant-design-vue'
+
+const color = useColorMode()
+</script>
+
 <template>
-  <main class="px-10 py-20 text-center">
-    <slot />
-    <Footer />
-    <div class="mx-auto mt-5 text-center text-sm opacity-25">
-      [Default Layout]
-    </div>
-  </main>
+  <ConfigProvider
+    :theme="{
+      algorithm: color.preference === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
+      token: {
+        colorPrimary: '#10b981',
+      },
+    }"
+  >
+    <main>
+      <LayoutsAppMenu />
+
+      <div p="l-80 t-24 r-6 b-6" lt-lg="pt13 pl0 pr0" transition-all duration-200>
+        <div
+          relative z-10 hfull wfull overflow-hidden bg-white:7 p7 px10 lt-lg:bg-transparent lt-md:px0
+          class="min-h-[calc(100vh-8rem)] rounded-1.4rem lt-md:rounded-none"
+        >
+          <slot />
+        </div>
+        <LayoutsAppFooter />
+      </div>
+    </main>
+  </ConfigProvider>
 </template>

@@ -10,11 +10,26 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
   ],
 
+  pinia: {
+    autoImports: [
+      'defineStore', 'useStore', 'acceptHMRUpdate', 'storeToRefs',
+    ],
+  },
+
+  imports: {
+    dirs: ['./stores', 'composables/**'],
+    autoImport: true,
+    addons: {
+      vueTemplate: true,
+    },
+  },
+
   experimental: {
     // when using generate, payload js assets included in sw precache manifest
     // but missing on offline, disabling extraction it until fixed
     payloadExtraction: false,
     inlineSSRStyles: false,
+    viewTransition: true,
     renderJsonPayloads: true,
     typedPages: true,
   },
