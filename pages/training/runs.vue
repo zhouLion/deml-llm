@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-const activeKey = ref('')
+const { pinRun, runs, removeRun } = useRunStores()
 
-const { runsInTab, onEdit, addRun } = useRunStores()
+definePageMeta({
+  layout: 'run',
+})
 
 const columns = [
   {
@@ -39,73 +41,28 @@ const columns = [
     key: 'actions',
   },
 ]
-
-const data = [
-  {
-    key: '1',
-    name: 'Run 1',
-    tags: 'tag1, tag2',
-    accountName: 'Account 1',
-    createTime: '2021-01-01',
-    state: 'Running',
-  },
-  {
-    key: '2',
-    name: 'Run 2',
-    tags: 'tag1, tag2',
-    accountName: 'Account 1',
-    createTime: '2021-01-01',
-    state: 'Running',
-  },
-  {
-    key: '3',
-    name: 'Run 3',
-    tags: 'tag1, tag2',
-    accountName: 'Account 1',
-    createTime: '2021-01-01',
-    state: 'Running',
-  },
-  {
-    key: '4',
-    name: 'Run 4',
-    tags: 'tag1, tag2',
-    accountName: 'Account 1',
-    createTime: '2021-01-01',
-    state: 'Running',
-  },
-]
 </script>
 
 <template>
   <ClientOnly>
-    <ATabs
-      v-model:activeKey="activeKey" type="editable-card"
-      @change="(evt) => navigateTo(`/training/run/${evt}`, {
-        replace: true,
-      })"
-      @edit="onEdit"
-    >
-      <ATabPane v-for="runId in runsInTab" :key="runId" :tab="`Run ${runId}`" closable />
-      <template #leftExtra>
-        <AButton mr @click="navigateTo('/training/runs')">
-          LLM Run Home
-        </AButton>
-      </template>
-    </ATabs>
     <h2 mb4>
       It's runs table
     </h2>
 
-    <ATable :columns="columns" :data-source="data">
+    <ATable :columns="columns" :data-source="runs || []">
       <template #bodyCell="{ column, text, record }">
         <template v-if="column.dataIndex === 'name'">
           <a>{{ text }}</a>
         </template>
-        <template v-if="column.dataIndex === 'actions'">
-          <NuxtLink :to="`/training/run/${record.key}`" title="View in tab" @click="addRun(record.key)">
-            <span class="i-solar:align-horizonta-spacing-linear inline-block" />
+        <span v-if="column.dataIndex === 'actions'" flex items-center gap-2>
+          <NuxtLink :to="`/training/run/${record.id}`" title="View in tab" @click="pinRun(record.id)">
+            View in tab
           </NuxtLink>
-        </template>
+
+          <AButton size="small" @click="removeRun(record.id)">
+            Remove
+          </AButton>
+        </span>
       </template>
     </ATable>
   </ClientOnly>

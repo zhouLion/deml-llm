@@ -1,38 +1,96 @@
 export function useRunStores() {
-  const storeage = useLocalStorage<string[]>('fedmlllm-run-ids', [])
+  const { data: runs, refresh } = useFetch('/api/training/runs')
+  const { data: pins, refresh: refereshPins } = useFetch('/api/training/pins')
+  const { data: projects, refresh: refereshProjects } = useFetch('/api/training/projects')
 
-  function addRun(id: string) {
-    if (storeage.value.includes(id))
-      return // already in tab
-    storeage.value.push(id)
+  async function addRun() {
+    const res = await useFetch('/api/training/run', {
+      method: 'POST',
+      body: {},
+    })
+    refresh()
+    return res.data
   }
 
   function removeRun(id: string) {
-    const idIndex = storeage.value.indexOf(id)
-    storeage.value = storeage.value.filter(run => run !== id)
-    return idIndex - 1
+    useFetch('/api/training/run', {
+      method: 'DELETE',
+      body: {
+        id,
+      },
+    }).then(() => {
+      refresh()
+      refereshPins()
+    })
+    return 0
   }
 
-  function onEdit(tabKey: any, action: any) {
+  function pinRun(id: string) {
+    return useFetch('/api/training/pin', {
+      method: 'POST',
+      body: {
+        id,
+      },
+    }).then(() => {
+      refereshPins()
+    })
+  }
+
+  function unpin(id: string) {
+    return useFetch('/api/training/unpin', {
+      method: 'POST',
+      body: {
+        id,
+      },
+    }).then(() => {
+      refereshPins()
+    })
+  }
+
+  async function onEdit(tabKey: any, action: any) {
     if (action === 'add') {
-      const time = new Date().getTime()
-      const newRun = `Untitled-${time}`
-      addRun(newRun)
-      navigateTo(`/training/run/${newRun}`)
+      const data = await addRun()
+      pinRun(data.value)
+      navigateTo(`/training/run/${data.value}`)
     }
     else {
-      const preIndex = removeRun(tabKey)
-      if (preIndex >= 0)
-        navigateTo(`/training/run/${storeage.value.at(preIndex)}`)
-      else
-        navigateTo('/training/runs')
+      unpin(tabKey)
+      navigateTo('/training/runs')
     }
+  }
+
+  async function removeProject(id: string) {
+    useFetch('/api/training/project', {
+      method: 'DELETE',
+      body: {
+        id,
+      },
+    }).then(() => {
+      refereshProjects()
+    })
+  }
+
+  async function addProject() {
+    useFetch('/api/training/project', {
+      method: 'POST',
+      body: {},
+    }).then(() => {
+      refereshProjects()
+    })
   }
 
   return {
-    runsInTab: storeage,
+    runsInTab: pins,
+    pinRun,
+    refereshPins,
     onEdit,
     addRun,
     removeRun,
+    unpin,
+    runs,
+    projects,
+    addProject,
+    refereshProjects,
+    removeProject,
   }
 }

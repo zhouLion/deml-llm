@@ -7,6 +7,8 @@
         relative z-10 hfull wfull overflow-hidden bg-white:7 p7 px10 lt-lg:bg-transparent lt-md:px0
         class="min-h-[calc(100vh-8rem)] rounded-1.4rem lt-md:rounded-none"
       >
+        <!-- <LayoutsAppBreadcurmb /> -->
+        <LayoutsAppRunTabs />
         <slot />
       </div>
       <LayoutsAppFooter />

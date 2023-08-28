@@ -102,7 +102,7 @@ const data = [
       </template>
       <template v-if="column.dataIndex === 'actions'">
         <NuxtLink :to="`/training/run/${record.key}`" title="View in tab" @click="addRun(record.key)">
-          <span class="i-solar:align-horizonta-spacing-linear inline-block" />
+          View in tab
         </NuxtLink>
       </template>
     </template>

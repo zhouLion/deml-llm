@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+import { appDescription } from '~/constants'
+</script>
+
 <template>
   <div
     fixed left-0 top-0 z-50 h-100vh w-80 flex flex-col transform overflow-hidden py-2 backdrop-blur backdrop-filter transition-all duration-200 lt-lg:translate-x--80
@@ -7,12 +11,21 @@
     >
       <img src="/img/logo.png" alt="fedml's logo" h32px w32px>
       <h2 class="mb-0 ml5 text-xl font-bold">
-        FedML LLMOps
+        {{ appDescription }}
       </h2>
     </div>
 
     <div overflow-y-auto>
       <div class="scrollbox mt-3 max-h-67rem px-2">
+        <div mb-4 px-2 not-first:mt-10>
+          <LayoutsAppLink :to="{ path: '/user-guide' }" icon="i-solar:clock-circle-linear" active-icon="i-solar:clock-circle-bold">
+            User Guide
+          </LayoutsAppLink>
+          <LayoutsAppLink :to="{ path: '/demo' }" icon="i-solar:clock-circle-linear" active-icon="i-solar:clock-circle-bold">
+            Demo
+          </LayoutsAppLink>
+        </div>
+
         <div mb-4 px-2 not-first:mt-10>
           <div mb-3 block>
             <span style="letter-spacing: 1px" ml3 uppercase op70>

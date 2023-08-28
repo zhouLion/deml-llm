@@ -33,6 +33,7 @@
     "vue-tsc": "^1.8.8"
   },
   "dependencies": {
-    "ant-design-vue": "^4"
+    "ant-design-vue": "^4",
+    "random-words": "^2.0.0"
   }
 }

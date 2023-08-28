@@ -1,6 +1,8 @@
 import { pwa } from './config/pwa'
 import { appDescription } from './constants/index'
 
+// import x from '@unocss/reset/tailwind-compat.css'
+
 export default defineNuxtConfig({
   modules: [
     '@vueuse/nuxt',
@@ -35,7 +37,7 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '@unocss/reset/tailwind.css',
+    '@unocss/reset/tailwind-compat.css',
   ],
 
   colorMode: {
