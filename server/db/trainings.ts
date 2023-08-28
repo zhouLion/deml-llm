@@ -37,6 +37,7 @@ export function addJob(run: Run) {
 
 export function getAllJobs() {
   return runs.slice()
+    .sort((a, b) => new Date(a?.updateTime || '').getTime() - new Date(b?.updateTime || '').getTime())
 }
 
 export function getRunsByPid(pid: string) {
@@ -93,7 +94,8 @@ export class Project {
 export const projects: Project[] = []
 
 export function getAllProjects() {
-  return projects
+  return projects.slice()
+    .sort((a, b) => new Date(a?.updateTime || '').getTime() - new Date(b?.updateTime || '').getTime())
 }
 
 export function addProject(project: Project) {

@@ -4,8 +4,9 @@ export function useRunStores() {
   const { data: projects, refresh: refereshProjects } = useFetch('/api/training/projects')
   const { data: projectRuns, refresh: refereshProjectRuns } = useFetch('/api/training/runsByPid', {
     query: {
-      pid: useRoute().params?.pid,
+      pid: computed(() => useRoute().params?.pid),
     },
+    immediate: true,
   })
 
   async function addRun() {
