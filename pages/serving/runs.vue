@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { Table as ATable, Button, TabPane, Tabs } from 'ant-design-vue'
-
 const activeKey = ref('')
 
 const { runsInTab, onEdit, addRun } = useRunStores()
@@ -79,20 +77,20 @@ const data = [
 </script>
 
 <template>
-  <Tabs
+  <ATabs
     v-model:activeKey="activeKey" type="editable-card"
     @change="(evt) => navigateTo(`/training/run/${evt}`, {
       replace: true,
     })"
     @edit="onEdit"
   >
-    <TabPane v-for="runId in runsInTab" :key="runId" :tab="`Run ${runId}`" closable />
+    <ATabPane v-for="runId in runsInTab" :key="runId" :tab="`Run ${runId}`" closable />
     <template #leftExtra>
-      <Button mr @click="navigateTo('/training/runs')">
+      <AButton mr @click="navigateTo('/training/runs')">
         LLM Run Home
-      </Button>
+      </AButton>
     </template>
-  </Tabs>
+  </ATabs>
   <h2 mb4>
     It's runs table
   </h2>

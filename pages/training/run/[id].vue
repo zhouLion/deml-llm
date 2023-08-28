@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { Button, TabPane, Tabs } from 'ant-design-vue'
-
 // useRoute
 const {
   params,
@@ -17,7 +15,7 @@ onMounted(() => {
 
 <template>
   <ClientOnly>
-    <Tabs
+    <ATabs
       v-model:activeKey="activeKey"
       type="editable-card"
       @change="(evt) => navigateTo(`/training/run/${evt}`, {
@@ -25,14 +23,14 @@ onMounted(() => {
       })"
       @edit="onEdit"
     >
-      <TabPane v-for="runId in runsInTab" :key="runId" :tab="`Run ${runId}`" closable />
+      <ATabPane v-for="runId in runsInTab" :key="runId" :tab="`Run ${runId}`" closable />
 
       <template #leftExtra>
-        <Button mr @click="navigateTo('/training/runs')">
+        <AButton mr @click="navigateTo('/training/runs')">
           LLM Run Home
-        </Button>
+        </AButton>
       </template>
-    </Tabs>
+    </ATabs>
 
     <h2>Content of run</h2>
     <p>

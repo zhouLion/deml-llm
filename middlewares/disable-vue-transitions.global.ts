@@ -1,5 +1,4 @@
 export default defineNuxtRouteMiddleware((to) => {
-  // @ts-expect-error built-in Vue transitions
   if (typeof document !== 'undefined' && !document.startViewTransition)
     return
 

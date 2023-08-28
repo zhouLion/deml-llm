@@ -46,6 +46,9 @@ devDependencies:
   consola:
     specifier: ^3.2.3
     version: 3.2.3
+  defu:
+    specifier: ^6.1.2
+    version: 6.1.2
   eslint:
     specifier: ^8.46.0
     version: 8.46.0
