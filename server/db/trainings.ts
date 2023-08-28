@@ -40,6 +40,8 @@ export function getAllJobs() {
 }
 
 export function getRunsByPid(pid: string) {
+  if (!pid)
+    return []
   return runs.filter(run => run.pid === pid).slice()
 }
 

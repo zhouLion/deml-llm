@@ -3,7 +3,7 @@ const route = useRoute()
 const pid = computed(() => route?.params?.pid || '')
 const runid = computed(() => route?.params?.runid || '')
 
-const { projects } = useRunStores()
+const { projects, projectRuns } = useRunStores()
 </script>
 
 <template>
@@ -31,7 +31,18 @@ const { projects } = useRunStores()
       </a-breadcrumb-item>
 
       <a-breadcrumb-item v-if="runid">
-        Run {{ runid }}
+        <NuxtLink :to="`/training/project/${pid}/${runid}`">
+          Run {{ runid }}
+        </NuxtLink>
+        <template #overlay>
+          <a-menu>
+            <a-menu-item v-for="run in projectRuns" :key="run.id">
+              <NuxtLink :to="`/training/project/${pid}/${run.id}`">
+                Run {{ run.name }}
+              </NuxtLink>
+            </a-menu-item>
+          </a-menu>
+        </template>
       </a-breadcrumb-item>
     </a-breadcrumb>
   </ClientOnly>
