@@ -37,7 +37,7 @@ const columns = [
 
 <template>
   <ClientOnly>
-    <h2 mb4>
+    <h2 mb4 flex items-center justify-between>
       It's runs table
       <AButton @click="addProject()">
         Create New Project
@@ -46,12 +46,10 @@ const columns = [
 
     <ATable :columns="columns" :data-source="projects || []">
       <template #bodyCell="{ column, text, record }">
-        <template v-if="column.dataIndex === 'name'">
-          <NuxtLink :to="`/training/project/${record.id}`">
-            {{ text }}
-          </NuxtLink>
-        </template>
         <span v-if="column.dataIndex === 'actions'" flex items-center gap-2>
+          <NuxtLink :to="`/training/project/${record.id}`">
+            View
+          </NuxtLink>
           <AButton size="small" @click="removeProject(record.id)">
             Remove
           </AButton>

@@ -49,13 +49,13 @@ const columns = [
 
 <template>
   <ClientOnly>
-    <h2 mb4>
+    <h2 mb4 flex items-center justify-between>
       It's runs table
+      <AButton @click="createProjectRun()">
+        Create New Run
+      </AButton>
     </h2>
 
-    <AButton @click="createProjectRun()">
-      Create New Run
-    </AButton>
     <ATable :columns="columns" :data-source="projectRuns || []">
       <template #bodyCell="{ column, text, record }">
         <template v-if="column.dataIndex === 'name'">
